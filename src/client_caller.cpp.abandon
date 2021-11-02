@@ -1,0 +1,45 @@
+#include "../include/client_caller.h"
+#include "../include/utils.h"
+#include <cstdlib>
+#include <exception>
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using spdcom::Caller;
+
+extern json configMap;
+
+Caller::Caller():client(nullptr),serverPort(configMap["server_port"]),serverIp(configMap["server_ip"]){
+    try {
+        client = new Client(serverIp,serverPort);
+    }catch(std::exception& e){
+        cout << e.what() << endl;
+        exit(-1);
+    }
+}
+
+Caller::~Caller(){
+    if (client){
+        delete client;
+    }
+}
+
+//TODO
+Caller::Caller(Caller&& cal){
+
+}
+
+string Caller::getServerIp()const{
+    return this->serverIp;
+}
+
+int Caller::getServerPort()const{
+    return this->serverPort;
+}
+
+string Caller::getLs()const{
+    return this->call<string>("ls", "ls -l "+tools::getCurrentPwd());
+}
+
+

@@ -1,0 +1,37 @@
+#pragma once
+#include "rpc/client.h"
+#include "nlohmann/json.hpp"
+#include <string>
+#include "utils.h"
+
+using string = std::string;
+using Client = rpc::client;
+using json   = nlohmann::json;
+using Args   = const string&;
+
+namespace spdcom{
+    class Caller{
+        public:
+            Caller();
+            ~Caller();
+            Caller(const Caller&)=delete;
+            Caller& operator=(const Caller&)=delete;
+            Caller(Caller&&);
+            int getServerPort()const;
+            string getServerIp()const;
+
+            //run command
+            string getLs()const;
+
+        private:
+            template<typename T,typename... Args>
+                T call(string funcName,Args... args)const{
+                    return client->call(funcName,args...).template as<T>();
+                }
+
+        private:
+            Client *client;
+            string serverIp;
+            int serverPort;
+    };
+}

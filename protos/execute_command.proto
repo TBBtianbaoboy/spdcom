@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// option java_multiple_files = true;
+// option java_package = "ex.grpc";
+
+package ec;
+
+service ExecuteCommand {
+    rpc sendReq (CommandReq) returns (CommandResp) {}
+}
+
+message CommandReq {
+    string command = 1;
+}
+
+message CommandResp {
+    string commandResult = 1;
+}
+
+
