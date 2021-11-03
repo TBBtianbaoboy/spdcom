@@ -11,8 +11,10 @@ PROTOS_PATH = ../protos
 vpath %.proto $(PROTOS_PATH)
 
 all: execute_command.pb.o execute_command.grpc.pb.o
-	mv execute_command.pb.o ../server/
-	mv execute_command.grpc.pb.o ../server/
+	@cp execute_command.pb.o ../server/
+	@cp execute_command.pb.o ../client/
+	@cp execute_command.grpc.pb.o ../server/
+	@cp execute_command.grpc.pb.o ../client/
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto

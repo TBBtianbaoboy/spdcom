@@ -15,21 +15,13 @@ LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++`\
            -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
            -ldl
 endif
-PROTOC = protoc
-GRPC_CPP_PLUGIN = grpc_cpp_plugin
-GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 OBJ= execute_command.pb.o execute_command.grpc.pb.o server.o server_config.o server_caller.o utils.o
-PROTOS_PATH = ../protos
+SERVERPATH=../rpcserver
 
-vpath %.proto $(PROTOS_PATH)
 vpath %.cpp ../src
 
-all: 
-	cd ../include && make
-	make rpcserver
-
-rpcserver: $(OBJ)
-	$(CXX) $(INCLUDEFILE) $^ $(LDFLAGS) -o $@
+all: $(OBJ)
+	$(CXX) $(INCLUDEFILE) $^ $(LDFLAGS) -o $(SERVERPATH)
 
 .PRECIOUS:%.o
 %.o:%.cpp 
@@ -37,5 +29,4 @@ rpcserver: $(OBJ)
 
 .PHONY: clean
 clean:
-	cd ../include && make clean
-	rm -f *.o rpcserver
+	rm -f *.o ../rpcserver

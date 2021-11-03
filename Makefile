@@ -1,13 +1,20 @@
 all:
-	cd server && make
-	cd client && make
+	@cd include && make
+	@cd server && make
+	@cd client && make
 
-# server:
-#     cd server && make
+.PHONY:client
+client:
+	@cd include && make 
+	@cd client && make
 
-# client:
-#     cd client && make
+.PHONY:server
+server:
+	@make -C include
+	@make -C server
 
+.PHONY:clean
 clean:
-	cd server && make clean
-	cd client && make clean
+	@make -C include clean
+	@make -C server clean
+	@make -C client clean

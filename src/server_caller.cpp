@@ -1,8 +1,6 @@
 #include "../include/server_caller.h"
 #include "../include/utils.h"
-#include <cstdlib>
-#include <exception>
-#include <iostream>
+#include "grpcpp/ext/proto_server_reflection_plugin.h"
 
 using spdcom::ServerCaller;
 using spdcom::ExecuteCommandService;
@@ -18,6 +16,8 @@ Status ExecuteCommandService::sendReq(ServerContext* context,const CommandReq* r
 }
 
 ServerCaller::ServerCaller():serverAddress(),builder(),service(),server(){
+    //enable server reflection by using grpcurl or grpc_cli
+    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
     serverAddress = configMap["server_ip"];
     serverAddress.append(":");
     serverAddress += configMap["server_port"];
