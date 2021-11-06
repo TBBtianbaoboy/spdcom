@@ -15,7 +15,7 @@ LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++`\
            -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
            -ldl
 endif
-OBJ= execute_command.pb.o execute_command.grpc.pb.o client.o server_config.o client_caller.o
+OBJ= execute_command.pb.o execute_command.grpc.pb.o client.o server_config.o client_caller.o utils.o
 CLIENTPATH=../rpcclient
 
 vpath %.cpp ../src

@@ -10,6 +10,7 @@
 using std::string;
 using spdcom::MESSAGESIZEF;
 using spdcom::tools;
+using spdcom::argusType;
 
 string tools::getCommandResult(string& command){
     FILE *fstream = nullptr;
@@ -27,4 +28,11 @@ string tools::getCommandResult(string& command){
 
 const string tools::getCurrentPwd(){
     return string(get_current_dir_name());
+}
+
+argusType tools::isInArguList(string argu){
+    if(argu=="-c" || argu=="--command"){
+        return COMMAND;
+    }
+    return OTHERS;
 }

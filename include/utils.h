@@ -1,6 +1,7 @@
 //@desc utils.h encapsulates some common tools
 #pragma once
 #include <string>
+#include "server_config.h"
 using std::string;
 
 namespace spdcom{
@@ -15,5 +16,6 @@ namespace spdcom{
         public:
             static string getCommandResult(string&);
             static const string getCurrentPwd();
+            static argusType isInArguList(string);
     };
 }
